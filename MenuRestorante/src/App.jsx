@@ -2,14 +2,25 @@ import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import Header from '../src/components/Header';
 import Footer from '../src/components/Footer';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import PublicRoutes from '../src/routes/PublicRoutes';
+import Home from '../src/pages/PublicPage/Home';
+/*import PrivateRoutes from './PrivateRoutes';*/
+
 
 const App = () => {
   return (
-    <Container>
-      <Header />
-      
-      <Footer />
-    </Container>
+    <Router>
+      <Container>
+        <Header />
+        <Routes>
+
+          <Route path="/" element={<Home />} />
+
+        </Routes>
+        <Footer />
+      </Container>
+    </Router>
   );
 };
 
