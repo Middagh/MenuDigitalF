@@ -7,11 +7,7 @@ const App = () => {
   return (
     <Container>
       <Header />
-      <Row>
-        <Col>
-          <h1>Hello, React Bootstrap!</h1>
-        </Col>
-      </Row>
+      
       <Footer />
     </Container>
   );

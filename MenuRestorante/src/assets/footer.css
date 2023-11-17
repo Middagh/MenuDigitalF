@@ -1,0 +1,11 @@
+.page-footer {
+    background-color: #ddd7c1;
+  }
+  
+  /* Cambiar el color del texto de los enlaces */
+a {
+    color: #746c5a; /* Puedes cambiar el color según tus preferencias */
+  }
+  a:visited {
+    color: #3f3025; /* Puedes cambiar el color según tus preferencias */
+  }
