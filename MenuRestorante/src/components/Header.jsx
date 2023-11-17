@@ -13,9 +13,9 @@ function Header() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#home">Principal</Nav.Link>
+            <Nav.Link as={Link} to="/">Principal</Nav.Link>
             <Nav.Link href="#link">Nosotros</Nav.Link>
-            <Nav.Link href="#link">Login</Nav.Link>
+            <Nav.Link as={Link} to="/login">Login</Nav.Link>
             <NavDropdown title="Más" id="basic-nav-dropdown">
               <NavDropdown.Item as={Link} to="/register">Registrarme</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>

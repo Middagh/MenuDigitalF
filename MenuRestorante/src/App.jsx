@@ -5,6 +5,7 @@ import Footer from '../src/components/Footer';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from '../src/pages/PublicPage/Home';
 import Register from '../src/pages/PublicPage/register';
+import Login from './pages/PublicPage/loginUsuario';
 
 /*import PrivateRoutes from './PrivateRoutes';*/
 
@@ -15,7 +16,8 @@ const App = () => {
         <Header />
         <Routes>
         <Route path="/register" element={<Register />} />
-          <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Home />} />
 
         </Routes>
         <Footer />
