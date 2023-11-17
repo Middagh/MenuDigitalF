@@ -2,6 +2,8 @@ import React from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import '../../assets/register.css';
+import { Link } from 'react-router-dom';
+
 
 const Register = () => {
     const {
@@ -82,6 +84,10 @@ const Register = () => {
                         <Button variant="primary" type="submit">
                             Registrarse
                         </Button>
+                    </div>
+                    <div className='text-center m-2'>
+                        ¿Tienes una cuenta?{' '}
+                        <Link to="/login">Entra aquí</Link> 
                     </div>
                 </Form>
             </Container>

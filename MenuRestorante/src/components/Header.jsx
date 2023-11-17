@@ -14,7 +14,7 @@ function Header() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link as={Link} to="/">Principal</Nav.Link>
-            <Nav.Link href="#link">Nosotros</Nav.Link>
+            <Nav.Link as={Link} to="/about-us">Nosotros</Nav.Link>
             <Nav.Link as={Link} to="/login">Login</Nav.Link>
             <NavDropdown title="Más" id="basic-nav-dropdown">
               <NavDropdown.Item as={Link} to="/register">Registrarme</NavDropdown.Item>
