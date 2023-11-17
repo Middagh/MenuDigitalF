@@ -4,6 +4,8 @@ import Header from '../src/components/Header';
 import Footer from '../src/components/Footer';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from '../src/pages/PublicPage/Home';
+import Register from '../src/pages/PublicPage/register';
+
 /*import PrivateRoutes from './PrivateRoutes';*/
 
 const App = () => {
@@ -12,7 +14,7 @@ const App = () => {
       <Container>
         <Header />
         <Routes>
-
+        <Route path="/register" element={<Register />} />
           <Route path="/" element={<Home />} />
 
         </Routes>
