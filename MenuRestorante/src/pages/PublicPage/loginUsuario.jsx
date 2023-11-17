@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 // import '../../assets/login.css'; // Puedes importar tu archivo de estilos específicos para el login
+import { Helmet } from 'react-helmet';
 
 const Login = () => {
   const handleSubmit = (e) => {
@@ -12,6 +13,7 @@ const Login = () => {
 
   return (
     <div>
+      <Helmet><title>Login - Los Hornos</title></Helmet>
       <Container className='containerFormLogin col-md-8 col-lg-6 mx-auto'>
         <h2>Iniciar Sesión</h2>
         <Form onSubmit={handleSubmit}>

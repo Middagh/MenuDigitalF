@@ -3,6 +3,7 @@ import { Container, Form, Button } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import '../../assets/register.css';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 
 const Register = () => {
@@ -22,6 +23,7 @@ const Register = () => {
 
     return (
         <div>
+            <Helmet><title>Register - Los Hornos</title></Helmet>
             <Container className='containerFormRegister col-md-8 col-lg-6 mx-auto p-2 m-2'>
                 <h2>Registro</h2>
                 <Form onSubmit={handleSubmit(onSubmit)}>
@@ -87,7 +89,7 @@ const Register = () => {
                     </div>
                     <div className='text-center m-2'>
                         ¿Tienes una cuenta?{' '}
-                        <Link to="/login">Entra aquí</Link> 
+                        <Link to="/login">Entra aquí</Link>
                     </div>
                 </Form>
             </Container>

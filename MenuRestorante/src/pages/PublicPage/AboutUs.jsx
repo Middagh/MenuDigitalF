@@ -1,10 +1,12 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import  '../../assets/aboutus.css';
+import '../../assets/aboutus.css';
+import { Helmet } from 'react-helmet';
 
 const AboutUs = () => {
   return (
     <Container className='containerFormLogin p-2 m-2'>
+      <Helmet><title>Nosotros - Los Hornos</title></Helmet>
       <Row>
         <Col>
           <h2>Sobre Nosotros</h2>

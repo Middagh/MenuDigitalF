@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet'; //Este import permite que el Title de la página se modifique! usar en todas pages!
+import { Helmet } from 'react-helmet';
 import '../../assets/error404.css';
 
 const PageNotFound = () => {

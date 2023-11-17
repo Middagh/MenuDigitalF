@@ -4,10 +4,12 @@ import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import '../../assets/home.css'; 
 import fondoImagen from '../../assets/images/MainPicEmp.jpeg';
+import { Helmet } from 'react-helmet';
 
 const Home = () => {
   return (
     <Container className='containerStyle'>
+      <Helmet><title>Home - Los Hornos</title></Helmet>
       <Row className="mb-4">
         <Col>
           <Card className="mainCard text-white" style={{ backgroundImage: `url(${fondoImagen})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
