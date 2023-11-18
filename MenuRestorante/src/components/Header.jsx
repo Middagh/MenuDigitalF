@@ -18,9 +18,9 @@ function Header() {
             <Nav.Link as={Link} to="/login">Login</Nav.Link>
             <NavDropdown title="Más" id="basic-nav-dropdown">
               <NavDropdown.Item as={Link} to="/register">Registrarme</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="*">Something</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
+              <NavDropdown.Item as={Link} to="*">
                 Separated link
               </NavDropdown.Item>
             </NavDropdown>

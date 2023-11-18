@@ -1,12 +1,12 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import '../../assets/error404.css';
 
 const PageNotFound = () => {
     return (
-        <div className="not-found-container">
+        <Container className="not-found-container">
             <Helmet>
                 <title>404 - Página no encontrada</title>
             </Helmet>
@@ -17,7 +17,7 @@ const PageNotFound = () => {
                     Volver a página principal
                 </Button>
             </Link>
-        </div>
+        </Container>
     );
 };
 

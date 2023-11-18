@@ -22,7 +22,6 @@ const App = () => {
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/" element={<Home />} />
         <Route path="*" element={<Error404 />} />
-
         </Routes>
         <Footer />
       </Container>
