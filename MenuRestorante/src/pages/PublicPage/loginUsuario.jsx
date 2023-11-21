@@ -33,9 +33,9 @@ const Login = () => {
             </Button>
           </div>
 
-          <div className='text-center m-2'>
+          <div className='text-center m-2 p-2'>
             ¿No tienes una cuenta?{' '}
-            <Link to="/register">Regístrate aquí</Link> {/* Ajusta la ruta "/register" según tus necesidades */}
+            <Link to="/register"><strong>Regístrate aquí</strong> </Link> {/* Ajusta la ruta "/register" según tus necesidades */}
           </div>
         </Form>
       </Container>

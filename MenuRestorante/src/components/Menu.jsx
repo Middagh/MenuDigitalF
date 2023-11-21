@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Container } from 'react-bootstrap';
+import '../assets/menu.css';
+
 
 const Menu = () => {
   const [dishes, setDishes] = useState([]);
