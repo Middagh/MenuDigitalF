@@ -8,7 +8,7 @@ import Register from './pages/PublicPage/register';
 import Login from './pages/PublicPage/loginUsuario';
 import AboutUs from './pages/PublicPage/AboutUs';
 import Error404 from './pages/PublicPage/Error404';
-
+ import AdminPage from './pages/PublicPage/adminPage';
 /*import PrivateRoutes from './PrivateRoutes';*/
 
 const App = () => {
@@ -17,6 +17,7 @@ const App = () => {
       <Container>
         <Header />
         <Routes>
+        <Route path="/menuAdmin" element={<AdminPage />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/about-us" element={<AboutUs />} />
