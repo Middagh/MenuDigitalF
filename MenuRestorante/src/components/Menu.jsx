@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Form, Button, Container } from 'react-bootstrap';
 import '../assets/menu.css';
 
-
 const Menu = () => {
   const [dishes, setDishes] = useState([]);
   const [newDish, setNewDish] = useState({
@@ -10,6 +9,7 @@ const Menu = () => {
     ingredients: '',
     price: '',
     image: null,
+    category: '', 
   });
 
   const handleInputChange = (e) => {
@@ -34,6 +34,13 @@ const Menu = () => {
     }
   };
 
+  const handleCategoryChange = (e) => {
+    setNewDish({
+      ...newDish,
+      category: e.target.value,
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -43,6 +50,7 @@ const Menu = () => {
     formData.append('ingredients', newDish.ingredients);
     formData.append('price', newDish.price);
     formData.append('image', newDish.image);
+    formData.append('category', newDish.category);
 
     try {
       const response = await fetch('/api/menu', {
@@ -51,11 +59,11 @@ const Menu = () => {
       });
 
       if (response.ok) {
-        // Éxito, puedes manejar la respuesta según tus necesidades
+        // Éxito,  manejar la respuesta según tus necesidades
         const result = await response.json();
         console.log(result);
       } else {
-        // Manejar el error según tus necesidades
+        // Manejar el error según  necesidades
         console.error('Error al enviar el plato al servidor');
       }
     } catch (error) {
@@ -68,6 +76,7 @@ const Menu = () => {
       ingredients: '',
       price: '',
       image: null,
+      category: '',
     });
   };
 
@@ -79,8 +88,9 @@ const Menu = () => {
           <Form.Control
             type="text"
             name="name"
+            pattern="[A-Za-z]+"
             minLength={3}
-            maxLength={50} 
+            maxLength={50}
             value={newDish.name}
             onChange={handleInputChange}
             required
@@ -92,7 +102,8 @@ const Menu = () => {
           <Form.Control
             as="textarea"
             name="ingredients"
-            maxLength={500} 
+            pattern="[A-Za-z]+"
+            maxLength={500}
             value={newDish.ingredients}
             onChange={handleInputChange}
             required
@@ -105,11 +116,27 @@ const Menu = () => {
             type="number"
             name="price"
             minLength={3}
-            maxLength={10} 
+            maxLength={10}
             value={newDish.price}
             onChange={handleInputChange}
             required
           />
+        </Form.Group>
+
+        <Form.Group controlId="category">
+          <Form.Label>Categoría:</Form.Label>
+          <Form.Control
+            as="select"
+            name="category"
+            value={newDish.category}
+            onChange={handleCategoryChange}
+            required
+          >
+            <option value="">Seleccionar</option>
+            <option value="Entrada">Entrada</option>
+            <option value="Plato Principal">Plato Principal</option>
+            <option value="Postre">Postre</option>
+          </Form.Control>
         </Form.Group>
 
         <Form.Group controlId="image">
@@ -133,6 +160,7 @@ const Menu = () => {
             <h3>{dish.name}</h3>
             <p>Ingredients: {dish.ingredients}</p>
             <p>Price: {dish.price}</p>
+            <p>Category: {dish.category}</p>
           </div>
         ))}
       </div>
