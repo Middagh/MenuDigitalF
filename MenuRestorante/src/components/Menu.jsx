@@ -9,7 +9,7 @@ const Menu = () => {
     ingredients: '',
     price: '',
     image: null,
-    category: '', 
+    category: '',
   });
 
   const handleInputChange = (e) => {
@@ -133,9 +133,11 @@ const Menu = () => {
             required
           >
             <option value="">Seleccionar</option>
-            <option value="Entrada">Entrada</option>
-            <option value="Plato Principal">Plato Principal</option>
-            <option value="Postre">Postre</option>
+            <option value="Starters">Entrada</option>
+            <option value="Entrees">Plato Principal</option>
+            <option value="Desserts">Postre</option>
+            <option value="drink">Bebidas</option>
+
           </Form.Control>
         </Form.Group>
 
@@ -148,10 +150,11 @@ const Menu = () => {
             onChange={handleImageChange}
           />
         </Form.Group>
-
-        <Button variant="primary" type="submit" className="m-2 p-2">
-          Agregar al Menú
-        </Button>
+        <div className='buttonAddMenu text-center'>
+          <Button variant="primary" type="submit" className="m-2 p-2">
+            Agregar al Menú
+          </Button>
+        </div>
       </Form>
 
       <div>
