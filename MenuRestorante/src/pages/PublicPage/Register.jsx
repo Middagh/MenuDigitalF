@@ -89,7 +89,7 @@ const Register = () => {
                     </div>
                     <div className='text-center m-2'>
                         ¿Tienes una cuenta?{' '}
-                        <Link to="/login">Entra aquí</Link>
+                        <Link to="/login"><strong>Entra aquí</strong></Link>
                     </div>
                 </Form>
             </Container>
