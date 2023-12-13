@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import '../../assets/register.css';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-
-
+import pruebaApi from '../../api/Api'
 const Register = () => {
     const {
         register,
@@ -13,13 +12,31 @@ const Register = () => {
         formState: { errors },
         watch,
     } = useForm();
+    const [isLoading, setIsLoading] = useState(false);
 
-    const onSubmit = (data) => {
-        // Aquí puedes manejar la lógica de registro, como enviar los datos al servidor
-        console.log('Datos de registro:', data);
+    const onSubmit = async (data, e) => {
+        data.rol = 'user';
+        e.preventDefault();
+        setIsLoading(true);
+
+        try {
+            const response = await pruebaApi.post('', data);
+
+            if (response.status === 200) {
+                console.log('Datos enviados al backend con éxito');
+                // Puedes realizar otras acciones después de un registro exitoso
+            } else {
+                console.error('Error al enviar datos al backend:', response.statusText);
+                // Puedes manejar el error de alguna manera (mostrar un mensaje al usuario, etc.)
+            }
+        } catch (error) {
+            console.error('Error de red:', error);
+        } finally {
+            setIsLoading(false);
+        }
     };
 
-    const password = watch('password', ''); // Obtén el valor del campo de contraseña
+    const password = watch('password', '');
 
     return (
         <div>
@@ -83,9 +100,13 @@ const Register = () => {
                     </Form.Group>
 
                     <div className='text-center p-2 m-2'>
-                        <Button variant="primary" type="submit">
-                            Registrarse
-                        </Button>
+                        {isLoading ? (
+                            <p>Enviando datos al backend...</p>
+                        ) : (
+                            <Button variant="primary" type="submit">
+                                Registrarse
+                            </Button>
+                        )}
                     </div>
                     <div className='text-center m-2'>
                         ¿Tienes una cuenta?{' '}
