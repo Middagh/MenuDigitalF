@@ -5,6 +5,8 @@ import '../../assets/register.css';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import pruebaApi from '../../api/Api'
+
+
 const Register = () => {
     const {
         register,
