@@ -1,3 +1,6 @@
+// COMPONENTE NO EN USO ALTERNATIVO QUE PRACTIQUE Y QUE QUEDA EN MI REPOSITORIO
+// PARA FUTUROS TRABAJOS
+
 import React, { useState } from 'react';
 import { Form, Button, Container } from 'react-bootstrap';
 import '../assets/menu.css';

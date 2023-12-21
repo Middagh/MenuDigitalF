@@ -1,108 +1,25 @@
-// AdminPage.jsx
-
-import React, { useEffect, useState } from 'react';
-// import Menu from '../../components/Menu';
-import { Helmet } from 'react-helmet';
-import { Container, Table } from 'react-bootstrap';
-import pruebaApi from '../../api/Api';
+import React from 'react';
+import { UserTable } from '../../components/UserTable';
+import { ProductTable } from '../../components/ProductTable';
+import { Container } from 'react-bootstrap';
 
 const AdminPage = () => {
-  const [uploadUser, setUploadUser] = useState([]);  // almacenamiento de los usuarios en front
-  const [uploadProduct, setUploadProduct] = useState([]);  // almacenamiento de los productos en front
 
-  // trae a los usuarios del DB
-  const bringUser = async () => {
-    try {
-      const resp = await pruebaApi.get("/admin/getuser") // ruta de la db
 
-      setUploadUser(resp.data.user); // guarda los usuarios traidos del db a la consola en front
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  // trae a los productos del DB
-  const bringProduct = async () => {
-    try {
-      const resp = await pruebaApi.get("/admin/getproduct") // ruta de la db
-
-      setUploadProduct(resp.data.product); // guarda los usuarios traidos del db a la consola en front
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  //carga los usuarios bien se ingresa a la page
-  useEffect(() => {
-    bringUser();
-    bringProduct();
-  }, [])
-
- 
   return (
     <Container>
+			<h1 className="text-center mt-3">Admin Page</h1>
 
-      <Helmet><title> Administración - Los Hornos</title></Helmet>
+			<h2>Usuarios</h2>
 
-      <Container className='text-center'>
-        <h1>Administración de Menú</h1>
-      </Container>
+      <UserTable />
 
-      <Table striped bordered hover size="sm">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-          </tr>
-        </thead>
+			<h2>Productos</h2>
 
-        <tbody>
-          {
-            uploadUser.map((user) => {
-              return (
-                <tr key={user._id}>
-                  <td>{user._id}</td>
-                  <td>{user.name}</td>
-                  <td>{user.email}</td>
-                </tr>
-
-              )
-            })
-          }
-        </tbody>
-      </Table>
-
-
-
-      <Table striped bordered hover size="sm">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Description</th>
-          </tr>
-        </thead>        <tbody>
-          {
-            uploadProduct.map((product) => {
-              return (
-                <tr key={product._id}>
-                  <td>{product.name}</td>
-                  <td>{product._id}</td>
-                  <td>{product.price}</td>
-                  <td>{product.description}</td>
-                </tr>
-
-              )
-            })
-          }
-        </tbody>
-      </Table>
-
+      <ProductTable />
 
     </Container>
-  );
+  )
 };
 
 export default AdminPage;
