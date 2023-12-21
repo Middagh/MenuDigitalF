@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Table } from 'react-bootstrap';
+import { Table, Button } from 'react-bootstrap';
 import pruebaApi from '../../src/api/Api';
 import ModalProduct from './ModalProduct';
 
 export const ProductTable = () => {
 
     const [uploadProduct, setUploadProduct] = useState([]);  // almacenamiento de los productos en front
-      
+
 
     // trae a los productos del DB
     const bringProduct = async () => {
@@ -24,10 +24,21 @@ export const ProductTable = () => {
         bringProduct();
     }, []);
 
+    //Funcion para eliminar Productos
+	const deleteProduct = async (id) => {
+		try {
+			const resp = await pruebaApi.delete(`/admin/delete/${id}`);
+
+			
+		} catch (error) {
+			console.log('error')
+		}
+	};
+
 
     return (
         <>
-           
+
             <ModalProduct />{/* Modal para crear producto */}
 
             <Table striped bordered hover size="sm">
@@ -37,6 +48,8 @@ export const ProductTable = () => {
                         <th>Name</th>
                         <th>Price</th>
                         <th>Description</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,6 +61,15 @@ export const ProductTable = () => {
                                     <td>{product.name}</td>
                                     <td>{product.price}</td>
                                     <td>{product.description}</td>
+                                    <td>
+                                        <Button variant="warning">Editar</Button>
+                                    </td>
+                                    <td>
+                                        <Button onClick={() => deleteProduct(product._id)} variant="danger" >
+                                            Eliminar
+                                        </Button>
+                                    </td>
+
                                 </tr>
 
                             )

@@ -43,11 +43,12 @@ function ModalProduct() {
     //estan listos para enviar a la BS
 
     saveProductDB(name, price, description);
-
+// Evita que la consola quede con informacion de hook
     setName('');
     setPrice('');
     setDescription('');
   };
+  
 
   return (
     <>
