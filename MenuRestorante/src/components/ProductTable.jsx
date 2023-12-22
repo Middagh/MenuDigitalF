@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Button } from 'react-bootstrap';
 import pruebaApi from '../../src/api/Api';
-import ModalProduct from './ModalProduct';
+import ModalProduct from './ModalProductCreate';
+import { DeleteProduct } from './DeleteButtonProduct';
+import ModalProductEdit from './ModalProductEdit';
 
 export const ProductTable = () => {
 
@@ -24,22 +26,22 @@ export const ProductTable = () => {
         bringProduct();
     }, []);
 
-    //Funcion para eliminar Productos
-	const deleteProduct = async (id) => {
-		try {
-			const resp = await pruebaApi.delete(`/admin/delete/${id}`);
-
-			
-		} catch (error) {
-			console.log('error')
-		}
-	};
-
-
+    // Función para actualizar la lista de productos después de eliminar
+    const handleDeleteProduct = () => {
+        bringProduct();
+    };
+    // Función para actualizar la lista de productos después de AGREGAR un nuevo producto
+    const handleAddProduct = () => {
+        bringProduct();
+    };
+    // Función para actualizar la lista de productos después de EDITAR un nuevo producto
+    const handleEditProduct = () => {
+        bringProduct();
+    };
     return (
         <>
-
-            <ModalProduct />{/* Modal para crear producto */}
+            {/* Modal para crear producto */}
+            <ModalProduct onAddProduct={handleAddProduct} />
 
             <Table striped bordered hover size="sm">
                 <thead>
@@ -62,14 +64,11 @@ export const ProductTable = () => {
                                     <td>{product.price}</td>
                                     <td>{product.description}</td>
                                     <td>
-                                        <Button variant="warning">Editar</Button>
+                                        <ModalProductEdit onEditProduct={handleEditProduct} />
                                     </td>
                                     <td>
-                                        <Button onClick={() => deleteProduct(product._id)} variant="danger" >
-                                            Eliminar
-                                        </Button>
+                                        <DeleteProduct productId={product._id} onDelete={handleDeleteProduct} /> {/* Button que elimina y actualiza pagina */}
                                     </td>
-
                                 </tr>
 
                             )

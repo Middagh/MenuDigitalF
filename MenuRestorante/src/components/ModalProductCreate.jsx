@@ -1,8 +1,8 @@
 import { Form, Modal, Button } from 'react-bootstrap';
 import React, { useState } from 'react';
-import pruebaApi from '../../src/api/Api';
+import pruebaApi from '../api/Api';
 
-function ModalProduct() {
+function ModalProduct ({ onAddProduct }) {
   //funciones para cerrar y abrir el modal
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -21,8 +21,8 @@ function ModalProduct() {
         description,
       });
 
-      //forma numero 1 haciendo la peticion al backend
-      //cargarProduct();
+// Llama a la función para agregar un producto
+onAddProduct();
 
     } catch (error) {
       console.log(error);
@@ -49,7 +49,6 @@ function ModalProduct() {
     setDescription('');
   };
   
-
   return (
     <>
 
