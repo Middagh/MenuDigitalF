@@ -1,123 +1,127 @@
 import React, { useState } from 'react';
-import { Container, Form, Button } from 'react-bootstrap';
-import { useForm } from 'react-hook-form';
-import '../../assets/register.css';
+import { Container, Form, Modal, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import pruebaApi from '../../api/Api'
-
+import pruebaApi from '../../api/Api';
 
 const Register = () => {
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-        watch,
-    } = useForm();
-    const [isLoading, setIsLoading] = useState(false);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState('');
+  const [showSuccessModal, setShowSuccessModal] = useState(false); // Estado para controlar la visibilidad del modal
 
-    const onSubmit = async (data, e) => {
-        data.rol = 'user';
-        e.preventDefault();
-        setIsLoading(true);
+  const startRegister = async (name, email, password) => {
+    try {
+      const resp = await pruebaApi.post('/auth/createuser', {
+        name,
+        email,
+        password,
+      });
 
-        try {
-            const response = await pruebaApi.post('', data);
+      setError(resp.data.msg);
 
-            if (response.status === 200) {
-                console.log('Datos enviados al backend con éxito');
-                // Puedes realizar otras acciones después de un registro exitoso
-            } else {
-                console.error('Error al enviar datos al backend:', response.statusText);
-                // Puedes manejar el error de alguna manera (mostrar un mensaje al usuario, etc.)
-            }
-        } catch (error) {
-            console.error('Error de red:', error);
-        } finally {
-            setIsLoading(false);
-        }
-    };
+      localStorage.setItem('token', resp.data.token);
 
-    const password = watch('password', '');
+      // Mostrar el modal de éxito
+      setShowSuccessModal(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-    return (
-        <div>
-            <Helmet><title>Register - Los Hornos</title></Helmet>
-            <Container className='containerFormRegister col-md-8 col-lg-6 mx-auto p-2 m-2'>
-                <h2>Registro</h2>
-                <Form onSubmit={handleSubmit(onSubmit)}>
-                    <Form.Group className="mb-3" controlId="formUsername">
-                        <Form.Label>Nombre de Usuario</Form.Label>
-                        <Form.Control
-                            type="text"
-                            placeholder="Ingrese su nombre de usuario"
-                            {...register('username', { required: 'Este campo es obligatorio' })}
-                        />
-                        <Form.Text className="text-danger">{errors.username && errors.username.message}</Form.Text>
-                    </Form.Group>
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-                    <Form.Group className="mb-3" controlId="formEmail">
-                        <Form.Label>Dirección de Correo Electrónico</Form.Label>
-                        <Form.Control
-                            type="email"
-                            placeholder="Ingrese su correo electrónico"
-                            {...register('email', {
-                                required: 'Este campo es obligatorio',
-                                pattern: {
-                                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                                    message: 'Correo electrónico no válido',
-                                },
-                            })}
-                        />
-                        <Form.Text className="text-danger">{errors.email && errors.email.message}</Form.Text>
-                    </Form.Group>
+    // Validaciones
+    if (name === '' || email === '' || password === '' || confirmPassword === '') {
+      return console.log('Todos los campos son obligatorios');
+    }
 
-                    <Form.Group className="mb-3" controlId="formPassword">
-                        <Form.Label>Contraseña</Form.Label>
-                        <Form.Control
-                            type="password"
-                            placeholder="Ingrese su contraseña"
-                            {...register('password', {
-                                required: 'Este campo es obligatorio',
-                                pattern: {
-                                    value: /^(?=.*[A-Z])(?=.*\d).{8,}$/,
-                                    message: 'La contraseña debe contener al menos una mayúscula y un número, y tener al menos 8 caracteres.',
-                                },
-                            })}
-                        />
-                        <Form.Text className="text-danger">{errors.password && errors.password.message}</Form.Text>
-                    </Form.Group>
+    if (password !== confirmPassword) {
+      return console.log('Las contraseñas no coinciden');
+    }
 
-                    <Form.Group className="mb-3" controlId="formConfirmPassword">
-                        <Form.Label>Confirmar Contraseña</Form.Label>
-                        <Form.Control
-                            type="password"
-                            placeholder="Confirme su contraseña"
-                            {...register('confirmPassword', {
-                                required: 'Este campo es obligatorio',
-                                validate: (value) => value === password || 'Las contraseñas deben coincidir',
-                            })}
-                        />
-                        <Form.Text className="text-danger">{errors.confirmPassword && errors.confirmPassword.message}</Form.Text>
-                    </Form.Group>
+    startRegister(name, email, password);
+  };
 
-                    <div className='text-center p-2 m-2'>
-                        {isLoading ? (
-                            <p>Enviando datos al backend...</p>
-                        ) : (
-                            <Button variant="primary" type="submit">
-                                Registrarse
-                            </Button>
-                        )}
-                    </div>
-                    <div className='text-center m-2'>
-                        ¿Tienes una cuenta?{' '}
-                        <Link to="/login"><strong>Entra aquí</strong></Link>
-                    </div>
-                </Form>
-            </Container>
-        </div>
-    );
+  return (
+    <div>
+      <Helmet>
+        <title>Register - Los Hornos</title>
+      </Helmet>
+      <Container className='containerFormRegister col-md-8 col-lg-6 mx-auto p-2 m-2'>
+        <h2>Registro</h2>
+        <Form onSubmit={handleSubmit}>
+          {error ? <h3 className="errorStyle">{error}</h3> : ''}
+          <Form.Group className="mb-3" controlId="formUsername">
+            <Form.Label>Nombre de Usuario</Form.Label>
+            <Form.Control
+              type="text"
+              id="name"
+              placeholder="Ingrese nombre"
+              onChange={(e) => setName(e.target.value)}
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formEmail">
+            <Form.Label>Dirección de Correo Electrónico</Form.Label>
+            <Form.Control
+              type="email"
+              id="email"
+              placeholder="Ingrese correo electrónico"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formPassword">
+            <Form.Label>Contraseña</Form.Label>
+            <Form.Control
+              type="password"
+              id="password"
+              placeholder="Ingrese contraseña"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formConfirmPassword">
+            <Form.Label>Confirmar Contraseña</Form.Label>
+            <Form.Control
+              type="password"
+              id="confirmPassword"
+              placeholder="Confirme contraseña"
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+          </Form.Group>
+
+          <div className='text-center m-2'>
+            ¿Tienes una cuenta?{' '}
+            <Link to="/login"><strong>Entra aquí</strong></Link>
+          </div>
+
+          <button type="submit" className="btn btn-primary">
+            Registrarse
+          </button>
+        </Form>
+      </Container>
+
+      {/* Modal de éxito */}
+      <Modal show={showSuccessModal} onHide={() => setShowSuccessModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>¡Registro Exitoso!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Tu cuenta ha sido creada exitosamente. Ahora puedes iniciar sesión.
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={() => setShowSuccessModal(false)}>
+            Cerrar
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </div>
+  );
 };
 
 export default Register;
