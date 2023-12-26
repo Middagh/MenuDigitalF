@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Container, Form, Modal, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import pruebaApi from '../../api/Api';
+import '../../assets/register.css';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -11,6 +13,7 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [showSuccessModal, setShowSuccessModal] = useState(false); // Estado para controlar la visibilidad del modal
+  const navigate = useNavigate();// redireccionara al login
 
   const startRegister = async (name, email, password) => {
     try {
@@ -26,6 +29,7 @@ const Register = () => {
 
       // Mostrar el modal de éxito
       setShowSuccessModal(true);
+      setTimeout(() => setRedirect(true), 5000); // Redirigir después de 5 segundos (ajusta según tus necesidades)
     } catch (error) {
       console.log(error);
     }
@@ -45,7 +49,14 @@ const Register = () => {
 
     startRegister(name, email, password);
   };
-
+  // desde aqui redirecciona
+  if (showSuccessModal) {
+    // Puedes ajustar el tiempo según tus necesidades (aquí asumo 3000 milisegundos o 3 segundos)
+    setTimeout(() => {
+      navigate('/login');
+      setShowSuccessModal(false); // Asegúrate de actualizar el estado para cerrar el modal si es necesario
+    }, 3000);
+  }
   return (
     <div>
       <Helmet>
