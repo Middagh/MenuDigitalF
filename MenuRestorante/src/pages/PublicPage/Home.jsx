@@ -7,6 +7,27 @@ import fondoImagen from '../../assets/images/MainPicEmp.jpeg';
 import { Helmet } from 'react-helmet';
 
 const Home = () => {
+  
+  /*const [datos, setDatos] = React.useState(null);
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:3002/admin/uploaduser');
+        if (!response.ok) {
+          throw new Error('Error al obtener datos');
+        }
+        const data = await response.json();
+        setDatos(data);
+      } catch (error) {
+        console.error('Error de red:', error);
+      }
+    }; 
+
+    fetchData();
+  }, []);
+ console.log (datos)*/
+
   return (
     <Container className='containerStyle'>
       <Helmet><title>Home - Los Hornos</title></Helmet>

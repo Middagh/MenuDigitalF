@@ -5,7 +5,7 @@ import Footer from '../src/components/Footer';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from '../src/pages/PublicPage/Home';
 import Register from './pages/PublicPage/register';
-import Login from './pages/PublicPage/loginUsuario';
+import Login from './pages/PublicPage/loginUser';
 import AboutUs from './pages/PublicPage/AboutUs';
 import Error404 from './pages/PublicPage/Error404';
  import AdminPage from './pages/PublicPage/adminPage';
