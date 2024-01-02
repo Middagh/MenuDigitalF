@@ -29,6 +29,7 @@ export const UserTable = () => {
                 <th>ID</th>
                 <th>Name</th>
                 <th>Email</th>
+                <th>Rol</th>
             </tr>
         </thead>
 
@@ -40,6 +41,8 @@ export const UserTable = () => {
                             <td>{user._id}</td>
                             <td>{user.name}</td>
                             <td>{user.email}</td>
+                            <td>{user.rol}</td>
+
                         </tr>
 
                     )

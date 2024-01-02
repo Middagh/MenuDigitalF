@@ -1,6 +1,29 @@
-.containerFormRegister{
+.containerFormRegister {
     background-color: #c1b7a3;
-    color: #3f3025; /* Color de texto para contrastar con el fondo */
+    color: #3f3025;
+    /* Color de texto para contrastar con el fondo */
     border-radius: 8px;
-    }
+}
 
+.errorStyle {
+    color: red;
+    font-weight: bold;
+    /* Otras propiedades de estilo si es necesario */
+}
+
+.password-input-wrapper {
+    position: relative;
+}
+
+.password-toggle-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    user-select: none;
+}
+
+.password-toggle-icon.visible {
+    color: #007bff;
+}
