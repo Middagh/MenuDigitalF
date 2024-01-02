@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import pruebaApi from '../../api/Api';
+import eyeIcon from '../../assets/images/eye-fill.svg';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate(); // Para redireccionar
 
   const startLogin = async (email, password) => {
     try {
@@ -16,10 +19,19 @@ const Login = () => {
         password,
       });
 
-      console.log(resp);
       setError(resp.data.msg);
 
       localStorage.setItem('token', resp.data.token);
+
+      // Verificar el rol y redirigir según el rol
+      const userRole = resp.data.role;
+      if (userRole === 'admin') {
+        // Redirige a la página de administrador
+        navigate('/menuadmin');
+      } else {
+        // Redirige a la página principal o a otra según tus necesidades
+        navigate('/menusuer');
+      }
     } catch (error) {
       console.log(error);
     }
@@ -28,7 +40,7 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Añade aquí las validaciones
+    // Añadir aquí las validaciones
     if (email === '' || password === '') {
       return console.log('Todos los campos son obligatorios');
     }
@@ -45,7 +57,7 @@ const Login = () => {
         <h2>Iniciar Sesión</h2>
         <Form onSubmit={handleSubmit}>
           {error ? <h3 className="errorStyle">{error}</h3> : ''}
-        
+
           <Form.Group className="mb-3" controlId="formEmail">
             <Form.Label>Dirección de Correo Electrónico</Form.Label>
             <Form.Control
@@ -57,11 +69,19 @@ const Login = () => {
 
           <Form.Group className="mb-3" controlId="formPassword">
             <Form.Label>Contraseña</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Ingrese su contraseña"
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            <div className="password-input-wrapper">
+              <Form.Control
+                type={showPassword ? 'text' : 'password'}
+                placeholder="Ingrese su contraseña"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <span
+                className={`password-toggle-icon ${showPassword ? 'visible' : ''}`}
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                <img src={eyeIcon} alt="Show/Hide Password" />
+              </span>
+            </div>
           </Form.Group>
 
           <div className='text-center p-2 m-2'>
