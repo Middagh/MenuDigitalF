@@ -1,15 +1,15 @@
 import { Form, Modal, Button } from 'react-bootstrap';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import pruebaApi from '../api/Api';
 
-function ModalProductEdit({ onEditProduct }) {
+function ModalProductEdit({ onEditProduct, product }) {
   const [productEditSelect, setProductEditSelect] = useState({});
   const [showEdit, setShowEdit] = useState(false);
 
-  const editProduct = (product) => {
-    setShowEdit(true);
+  useEffect(() => {
+    // Actualiza el estado cuando cambia el producto
     setProductEditSelect(product);
-  };
+  }, [product]);
 
   const handleChangeEdit = (propiedad, valor) => {
     setProductEditSelect({
@@ -54,11 +54,11 @@ function ModalProductEdit({ onEditProduct }) {
 
   return (
     <>
-      <Button variant="warning m-2"  onClick={() => { handleShowEdit(); editProduct(product); }}>
+      <Button variant="warning m-2" onClick={handleShowEdit}>
         Editar
       </Button>
 
-      <Modal show={showEdit}>
+      <Modal show={showEdit} onHide={() => setShowEdit(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Editar un Producto</Modal.Title>
         </Modal.Header>
@@ -67,17 +67,17 @@ function ModalProductEdit({ onEditProduct }) {
           <Modal.Body>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Nombre del producto</Form.Label>
-              <Form.Control type="text" value={productEditSelect.name} onChange={(e) => handleChangeEdit('name', e.target.value)} />
+              <Form.Control type="text" value={productEditSelect.name || ''} onChange={(e) => handleChangeEdit('name', e.target.value)} />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
               <Form.Label>Precio</Form.Label>
-              <Form.Control type="number" value={productEditSelect.price} onChange={(e) => handleChangeEdit('price', e.target.value)} />
+              <Form.Control type="number" value={productEditSelect.price || 0} onChange={(e) => handleChangeEdit('price', e.target.value)} />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
               <Form.Label>Descripción</Form.Label>
-              <Form.Control type="text" value={productEditSelect.description} onChange={(e) => handleChangeEdit('description', e.target.value)} />
+              <Form.Control type="text" value={productEditSelect.description || ''} onChange={(e) => handleChangeEdit('description', e.target.value)} />
             </Form.Group>
           </Modal.Body>
 

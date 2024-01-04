@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Button } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 import pruebaApi from '../../src/api/Api';
 import ModalProduct from './ModalProductCreate';
 import { DeleteProduct } from './DeleteButtonProduct';
@@ -64,7 +64,7 @@ export const ProductTable = () => {
                                     <td>{product.price}</td>
                                     <td>{product.description}</td>
                                     <td>
-                                        <ModalProductEdit onEditProduct={handleEditProduct} />
+                                    <ModalProductEdit onEditProduct={handleEditProduct} product={product} />
                                     </td>
                                     <td>
                                         <DeleteProduct productId={product._id} onDelete={handleDeleteProduct} /> {/* Button que elimina y actualiza pagina */}
