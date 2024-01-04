@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import pruebaApi from '../../api/Api';
 import eyeIcon from '../../assets/images/eye-fill.svg';
@@ -9,8 +9,8 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate(); // Para redireccionar
+  const [showPassword, setShowPassword] = useState(false);// const local para ver la contrasena en input
+
 
   const startLogin = async (email, password) => {
     try {
@@ -19,19 +19,10 @@ const Login = () => {
         password,
       });
 
+      console.log(resp);
       setError(resp.data.msg);
 
       localStorage.setItem('token', resp.data.token);
-
-      // Verificar el rol y redirigir según el rol
-      const userRole = resp.data.role;
-      if (userRole === 'admin') {
-        // Redirige a la página de administrador
-        navigate('/menuadmin');
-      } else {
-        // Redirige a la página principal o a otra según tus necesidades
-        navigate('/menusuer');
-      }
     } catch (error) {
       console.log(error);
     }
@@ -40,7 +31,7 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Añadir aquí las validaciones
+    // Añade aquí las validaciones
     if (email === '' || password === '') {
       return console.log('Todos los campos son obligatorios');
     }
@@ -83,6 +74,7 @@ const Login = () => {
               </span>
             </div>
           </Form.Group>
+
 
           <div className='text-center p-2 m-2'>
             <Button variant="primary" type="submit">

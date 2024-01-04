@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
 import pruebaApi from '../../src/api/Api';
+import { DeleteUser } from './DeleteButtonUser';
 
 
 export const UserTable = () => {
@@ -22,7 +23,10 @@ export const UserTable = () => {
     useEffect(() => {
         bringUser();
     }, []);
-
+    // Función para actualizar la lista de productos después de eliminar
+    const handleDeleteUser = () => {
+        bringUser();
+    };
     return (<Table striped bordered hover size="sm">
         <thead>
             <tr>
@@ -30,6 +34,7 @@ export const UserTable = () => {
                 <th>Name</th>
                 <th>Email</th>
                 <th>Rol</th>
+                <th>Delete</th>
             </tr>
         </thead>
 
@@ -42,7 +47,9 @@ export const UserTable = () => {
                             <td>{user.name}</td>
                             <td>{user.email}</td>
                             <td>{user.rol}</td>
-
+                            <td>
+                                <DeleteUser userId={user._id} onDeleteUser={handleDeleteUser} /> {/* Button que elimina y actualiza pagina */}
+                            </td>
                         </tr>
 
                     )
