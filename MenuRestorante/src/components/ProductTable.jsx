@@ -26,7 +26,7 @@ export const ProductTable = () => {
         bringProduct();
     }, []);
 
-    // Función para actualizar la lista de productos después de eliminar
+    // Función para actualizar la lista de productos después de ELIMINAR
     const handleDeleteProduct = () => {
         bringProduct();
     };
