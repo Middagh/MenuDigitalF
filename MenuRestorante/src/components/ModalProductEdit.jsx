@@ -4,7 +4,8 @@ import pruebaApi from '../api/Api';
 
 function ModalProductEdit({ onEditProduct, product }) {
   const [productEditSelect, setProductEditSelect] = useState({});
-  const [showEdit, setShowEdit] = useState(false);
+  const [showEdit, setShowEdit] = useState(false);// abre y cierra el modal
+  const [errors, setErrors] = useState({}); // Nuevo estado para los errores
 
   useEffect(() => {
     // Actualiza el estado cuando cambia el producto
@@ -16,15 +17,38 @@ function ModalProductEdit({ onEditProduct, product }) {
       ...productEditSelect,
       [propiedad]: valor,
     });
-  };
 
+    // Reiniciar los errores cuando se cambia un campo
+    setErrors({});
+  };
   const handleSubmitEdit = async (e) => {
     e.preventDefault();
 
-    if (productEditSelect.name === '' || productEditSelect.price === '' || productEditSelect.description === '') {
-      return console.log('Todos los campos son obligatorios');
-    } else if (productEditSelect.price < 0) {
-      return console.log('El precio debe ser mayor a 0');
+    // Objeto para almacenar mensajes de error por campo
+    const newErrors = {};
+
+    // Validaciones para el campo 'name'
+    if (productEditSelect.name.length < 3 || productEditSelect.name.length > 20) {
+      newErrors.name = 'El nombre debe tener entre 3 y 20 caracteres';
+    }
+
+    // Validaciones para el campo 'price'
+    const priceAsNumber = parseFloat(productEditSelect.price);
+    if (isNaN(priceAsNumber) || priceAsNumber < 0) {
+      newErrors.price = 'El precio debe ser un número mayor o igual a 0';
+    }
+
+    // Validaciones para el campo 'description'
+    if (productEditSelect.description.length < 3 || productEditSelect.description.length > 500) {
+      newErrors.description = 'La descripción debe tener entre 3 y 500 caracteres';
+    }
+
+    // Actualizar estado de errores
+    setErrors(newErrors);
+
+    // Si hay errores, no realizar la edición del producto
+    if (Object.keys(newErrors).length > 0) {
+      return;
     }
 
     await editProductDB(productEditSelect);
@@ -68,16 +92,20 @@ function ModalProductEdit({ onEditProduct, product }) {
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Nombre del producto</Form.Label>
               <Form.Control type="text" value={productEditSelect.name || ''} onChange={(e) => handleChangeEdit('name', e.target.value)} />
+             {errors.name && <div className="error-message">{errors.name}</div>}
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
               <Form.Label>Precio</Form.Label>
               <Form.Control type="number" value={productEditSelect.price || 0} onChange={(e) => handleChangeEdit('price', e.target.value)} />
+              {errors.price && <div className="error-message">{errors.price}</div>}
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
               <Form.Label>Descripción</Form.Label>
               <Form.Control type="text" value={productEditSelect.description || ''} onChange={(e) => handleChangeEdit('description', e.target.value)} />
+              {errors.description && <div className="error-message">{errors.description}</div>}
+
             </Form.Group>
           </Modal.Body>
 

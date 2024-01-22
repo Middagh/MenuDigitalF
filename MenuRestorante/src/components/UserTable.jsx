@@ -34,6 +34,7 @@ export const UserTable = () => {
                 <th>Name</th>
                 <th>Email</th>
                 <th>Rol</th>
+                <th>Status</th>
                 <th>Delete</th>
             </tr>
         </thead>
@@ -47,6 +48,8 @@ export const UserTable = () => {
                             <td>{user.name}</td>
                             <td>{user.email}</td>
                             <td>{user.rol}</td>
+                            <td>{user.status}</td>
+
                             <td>
                                 <DeleteUser userId={user._id} onDeleteUser={handleDeleteUser} /> {/* Button que elimina y actualiza pagina */}
                             </td>
